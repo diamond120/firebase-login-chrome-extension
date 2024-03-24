@@ -4,6 +4,8 @@ import { initializeApp } from 'firebase/app';
 // Find my details from Firebase Console
 
 // config after registering firebase App
+
+export const FIREBASE_SESSION_KEY = 'firebase_session';
 const config = {
   apiKey: 'AIzaSyD3RIUnQNCXSEVOePalWzdYdTAsDWGaCdk',
   authDomain: 'mythic-fabric-417721.firebaseapp.com',

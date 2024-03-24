@@ -43,26 +43,26 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 
     else if(message == "fillOut") {
       let i = 1;
-        const inputs = document.querySelectorAll('input');
-        inputs.forEach((input) => {
-            if(input.type != "hidden")
-              input.value = "Answer about:" + curPageHeadings[i ++];
-        })
-
-        const textareas = document.querySelectorAll('textarea');
-        textareas.forEach(input => {
+      const inputs = document.querySelectorAll('input');
+      inputs.forEach((input) => {
+          if(input.type != "hidden")
             input.value = "Answer about:" + curPageHeadings[i ++];
-        })
+      })
 
-        const inputDivs = document.getElementsByClassName("Xb9hP");
-        Array.from(inputDivs).forEach(div => {
-          div.children[1].style.display = "none";
-        })
+      const textareas = document.querySelectorAll('textarea');
+      textareas.forEach(input => {
+          input.value = "Answer about:" + curPageHeadings[i ++];
+      })
 
-        const textDivs = document.getElementsByClassName("RpC4Ne oJeWuf");
-        Array.from(textDivs).forEach(div => {
-          div.children[0].style.display = "none";
-        })
+      const inputDivs = document.getElementsByClassName("Xb9hP");
+      Array.from(inputDivs).forEach(div => {
+        div.children[1].style.display = "none";
+      })
+
+      const textDivs = document.getElementsByClassName("RpC4Ne oJeWuf");
+      Array.from(textDivs).forEach(div => {
+        div.children[0].style.display = "none";
+      })
     }
 }); 
 

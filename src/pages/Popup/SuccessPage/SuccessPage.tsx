@@ -11,9 +11,10 @@ const override: CSSProperties = {
 type SuccessPageProps = {
   authToken?: string;
   action: () => void;
+  signOut: () => void;
 };
 
-const SuccessPage: React.FC<SuccessPageProps> = ({ action }) => {
+const SuccessPage: React.FC<SuccessPageProps> = ({ action, signOut }) => {
   const fillOutPage = (): void => {
     action();
     setTimeout((): void => {
@@ -35,6 +36,9 @@ const SuccessPage: React.FC<SuccessPageProps> = ({ action }) => {
       />
 
       {!fillingPage && <Button label="Fill out Page" action={fillOutPage} disabled={fillingPage} />}
+      <br/>
+      <br/>
+      <Button label="Sign Out" action={signOut} />
     </div>
   );
 };
