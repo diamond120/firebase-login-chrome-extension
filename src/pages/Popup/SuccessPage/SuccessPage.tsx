@@ -1,4 +1,4 @@
-import React, { useState, CSSProperties } from 'react';
+import React, { CSSProperties } from 'react';
 import Button from '@pages/popup/Button/Button';
 import '@pages/popup/SuccessPage/SuccessPage.css';
 
@@ -11,33 +11,25 @@ const override: CSSProperties = {
 type SuccessPageProps = {
   authToken?: string;
   action: () => void;
+  loading: boolean;
   signOut: () => void;
 };
 
-const SuccessPage: React.FC<SuccessPageProps> = ({ action, signOut }) => {
-  const fillOutPage = (): void => {
-    action();
-    setTimeout((): void => {
-      setFillingPage(false);
-    }, 1000);
-  };
-
-  const [fillingPage, setFillingPage] = useState<boolean>(false);
-
+const SuccessPage: React.FC<SuccessPageProps> = ({ action, loading, signOut }) => {
   return (
     <div className="success-page-container">
       <ClipLoader
         color="#fff"
-        loading={fillingPage}
+        loading={loading}
         cssOverride={override}
         size={60}
-        aria-label="Filling out Page"
+        aria-label="Getting files Page"
         data-testid="loader"
       />
 
-      {!fillingPage && <Button label="Fill out Page" action={fillOutPage} disabled={fillingPage} />}
-      <br/>
-      <br/>
+      {!loading && <Button label="Get All Files" action={action} disabled={loading} />}
+      <br />
+      <br />
       <Button label="Sign Out" action={signOut} />
     </div>
   );

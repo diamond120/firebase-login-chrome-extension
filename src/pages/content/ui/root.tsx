@@ -3,7 +3,6 @@ import App from '@pages/content/ui/app';
 import refreshOnUpdate from 'virtual:reload-on-update-in-view';
 import injectedStyle from './injected.css?inline';
 import { callAPI } from './api';
-import store from '@root/src/store/store';
 
 refreshOnUpdate('pages/content');
 
@@ -23,48 +22,39 @@ const styleElement = document.createElement('style');
 styleElement.innerHTML = injectedStyle;
 
 document.body.append(styleElement);
-let curPageHeadings = [];
 
-function scrapeData() {
-    const paragraphs = document.querySelectorAll('[role="heading"]');
-    const data = Array.from(paragraphs).map(p => p.textContent);
-    curPageHeadings = data;
-    chrome.runtime.sendMessage(data);
-    return data;
+function getDownloadLinks() {
+  const anchors = document.querySelectorAll('a');
+  const ret = [];
+  anchors.forEach(anchor => {
+    const innerStr = anchor.innerHTML;
+    if (innerStr.includes('.zip') || innerStr.includes('.pdf')) {
+      ret.push(anchor);
+    }
+  });
+  return ret;
 }
-
-
+async function delay() {
+  return new Promise(resolve => setTimeout(resolve, 2600));
+}
 // Send scraped data back to the extension
-chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
-    
-    if (message === 'scrapeData') {
-        const scrapedData = scrapeData();
-    }
-
-    else if(message == "fillOut") {
-      let i = 1;
-      const inputs = document.querySelectorAll('input');
-      inputs.forEach((input) => {
-          if(input.type != "hidden")
-            input.value = "Answer about:" + curPageHeadings[i ++];
-      })
-
-      const textareas = document.querySelectorAll('textarea');
-      textareas.forEach(input => {
-          input.value = "Answer about:" + curPageHeadings[i ++];
-      })
-
-      const inputDivs = document.getElementsByClassName("Xb9hP");
-      Array.from(inputDivs).forEach(div => {
-        div.children[1].style.display = "none";
-      })
-
-      const textDivs = document.getElementsByClassName("RpC4Ne oJeWuf");
-      Array.from(textDivs).forEach(div => {
-        div.children[0].style.display = "none";
-      })
-    }
-}); 
+chrome.runtime.onMessage.addListener(function (message) {
+  if (message === 'scrapeData') {
+    const downloadLinks = getDownloadLinks();
+    console.log('Total downloads:', downloadLinks.length);
+    downloadLinks
+      .reduce((seq, link) => {
+        return seq.then(() => {
+          link.click();
+          console.log('Downloading file:', link.innerHTML);
+          return delay();
+        });
+      }, Promise.resolve())
+      .then(() => {
+        chrome.runtime.sendMessage('compress');
+      });
+  }
+});
 
 /**
  * https://github.com/Jonghakseo/chrome-extension-boilerplate-react-vite/pull/174
