@@ -9,8 +9,8 @@ dependencies:
     specifier: ^2.2.2
     version: 2.2.5(react-redux@9.1.2)(react@18.2.0)
   '@rollup/rollup-win32-x64-msvc':
-    specifier: ^4.13.0
-    version: 4.13.0
+    specifier: ^4.17.2
+    version: 4.17.2
   axios:
     specifier: ^1.6.8
     version: 1.6.8
@@ -1464,8 +1464,8 @@ packages:
     dev: true
     optional: true
 
-  /@rollup/rollup-win32-x64-msvc@4.13.0:
-    resolution: {integrity: sha512-UKXUQNbO3DOhzLRwHSpa0HnhhCgNODvfoPWv2FCXme8N/ANFfhIPMGuOT+QuKd16+B5yxZ0HdpNlqPvTMS1qfw==}
+  /@rollup/rollup-win32-x64-msvc@4.17.2:
+    resolution: {integrity: sha512-TGGO7v7qOq4CYmSBVEYpI1Y5xDuCEnbVC5Vth8mOsW0gDSzxNrVERPc790IGHsrT2dQSimgMr9Ub3Y1Jci5/8w==}
     cpu: [x64]
     os: [win32]
     dev: false
