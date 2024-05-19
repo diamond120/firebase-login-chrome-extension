@@ -7,7 +7,7 @@ import { initializeApp } from 'firebase/app';
 
 export const FIREBASE_SESSION_KEY = 'firebase_session';
 const config = {
-  apiKey: 'AIzaSyD3RIUnQNCXSEVOePalWzdYdTAsDWGaCdk',
+  apiKey: '',
   authDomain: 'mythic-fabric-417721.firebaseapp.com',
   projectId: 'mythic-fabric-417721',
   storageBucket: 'mythic-fabric-417721.appspot.com',
